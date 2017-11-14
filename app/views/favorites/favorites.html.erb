@@ -1,0 +1,32 @@
+<%= render('/layouts/menu-favorites') %>
+<div class="container">
+  <% if flash[:warning] %>
+    <div class="alert alert-danger"><%= flash[:warning] %></div>
+  <% end %>
+  <h2>Your Favorites</h2>
+  <p>Lista de suas músicas favoritas, sua playlist.</p>            
+  <table class="table table-bordered">
+    <thead id='title-favorites'>
+      <tr>
+        <th>Music</th>
+        <th>Style</th>
+        <th>Artist</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id='favorites-musics'>
+    <% if !@favorites.empty? %>
+      <% @favorites.each do |values| %>
+        <tr>
+          <td><%= values.name %></td>
+          <td><%= values.style %></td>
+          <td><%= values.artist %></td>
+          <td><a href='remove/<%= values.id %>'>Remove</a></td>
+        </tr>  
+      <% end %>  
+    <% end %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

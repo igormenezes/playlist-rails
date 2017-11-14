@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default">
+  <h2><a class="navbar-brand" href="/">Loja de Música</a></h2>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <%= form_for Music.new, html: {class: 'navbar-form navbar-left'}, url: {action: 'find'}, method: 'POST' do |f| %>
+          <div class="form-group">
+            <%= f.text_field :name, class: 'form-control', placeholder: 'Search', required: true %>
+            <%= f.submit "Search", class: 'btn btn-default' %>
+          </div>
+        <% end %>
+        <li> <a href="/favorites">My Favorites</a></li>
+      	<li> <a href="/list">List Musics</a></li>
+        <li><a href="/quit">Exit</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
