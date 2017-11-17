@@ -18,7 +18,7 @@ class FavoritesController < ApplicationController
 
 			music = Music.where('id = ?', params[:id].to_i).first
 			favorites = Favorite.new(:users_id => session[:login], :musics_id => music.id, :name => music.name, :style => music.style, :artist => music.artist)
-			
+
 			if favorites.save
 				redirect_to '/list'
 			end
@@ -32,7 +32,7 @@ class FavoritesController < ApplicationController
  	def remove
  		begin
 	 		if !session[:login] || !params[:id]
-					redirect_to '/list'
+				redirect_to '/list'
 			end
 
 			if Favorite.delete(params[:id].to_i)
