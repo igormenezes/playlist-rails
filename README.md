@@ -1,24 +1,31 @@
-# README
+1 - Crie o banco playlist
+2 - As tabelas da aplicação se encontra no arquivo, apenas importar para o mysql: playlist.sql
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+IMPORTANTE: 
 
-Things you may want to cover:
+No arquivo .env se encontra os dados de conexão com o banco, não esqueça de alterar conforme sua necessidade.
 
-* Ruby version
+O usuário para acesso ao admin é: 
 
-* System dependencies
+e-mail/login: admin@yahoo.com.br  
+senha: 123
 
-* Configuration
+Caso não queira importar as tabelas do arquivo playlist.sql, você pode gerar elas pelo migrate:
 
-* Database creation
+1 - Acesse pelo terminal o diretório do projeto.
+2 - execute o seguinte comando: php artisan migrate
 
-* Database initialization
+IMPORTANTE: 
 
-* How to run the test suite
+Caso não importe a tabela do banco playlist, o primeiro usuário criado será o adminsitrador, automaticamente ao realizar login será redirecioando para a área de adminsitrador(cadastro de músicas, verificar as mais favoritadas). 
 
-* Services (job queues, cache servers, search engines, etc.)
+Os demais usuarios cadastrados serão usuários sem privilégios, automaticamente ao realizar login será redirecionado a área do usuário(adicionar aos favoritos, busca, etc).
 
-* Deployment instructions
 
-* ...
+Para rodar a aplicação, faça o seguinte:
+
+1 - Acesse pelo terminal o diretório do projeto.
+2 - execute php artisan serve
+3 - acesse a url: http://localhost:8000/
+
+Depois só utilizar a aplicação =)
