@@ -44,7 +44,23 @@ class MusicsController < ApplicationController
   	end
 
   	def search
-  		puts 'teste'
+  		case params[:search]
+  		when 'name'
+  			query1 = "COUNT(name) AS total, name AS val";
+            query2 = "COUNT(name) DESC";
+        when 'style'
+           	query1 = "COUNT(style) AS total, style AS val";
+            query2 = "COUNT(style) DESC";
+        when 'artist'
+            query1 = "COUNT(artist) AS total, artist AS val";
+            query2 = "COUNT(artist) DESC";   
+        else
+        	favorites = Favorite.select(:name, :style, :artist)
+           	render :json => favorites
+        end  
+
+        favorites = Favorite.select(query1).group(params[:search]).order(query2)
+        render :json => favorites
   	end
 
 	def exit
