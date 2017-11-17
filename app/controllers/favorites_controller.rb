@@ -54,6 +54,27 @@ class FavoritesController < ApplicationController
  		return render :favorites
  	end
 
+ 	def find
+ 		if !session[:login]
+ 			redirect_to root_url
+ 		end
+
+ 		@musics = Music.select('musics.*').joins('LEFT JOIN favorites ON musics.id = favorites.musics_id').where(
+ 			'(favorites.users_id IS NULL OR favorites.users_id <> ?) AND musics.name NOT IN (?) 
+ 			AND (musics.style LIKE ? OR musics.artist LIKE ?)', session[:login], Favorite.select(:name).where('users_id = ?', session[:login]), "%#{params[:music]['name']}%", "%#{params[:music]['name']}%")
+
+ 		if !@musics.empty?
+ 			return render :index
+ 		end
+
+ 		@musics = Music.select('musics.*').joins('LEFT JOIN favorites ON musics.id = favorites.musics_id').where(
+ 			'(favorites.users_id IS NULL OR favorites.users_id <> ?) AND musics.name NOT IN (?)', session[:login], Favorite.select(:name).where('users_id = ?', session[:login]))
+ 		
+ 		flash[:warning] = 'Não foi encontrado nenhum Artista ou Estilo, de acordo com sua busca.'
+ 		return render :index    
+    
+ 	end
+
 	def quit
   		reset_session
   		redirect_to root_url
