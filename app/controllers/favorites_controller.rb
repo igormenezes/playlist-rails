@@ -4,7 +4,9 @@ class FavoritesController < ApplicationController
 			redirect_to root_url
 		end
 
-		@musics = Music.select('musics.*').joins('LEFT JOIN favorites ON musics.id = favorites.musics_id').where('favorites.users_id IS NULL OR favorites.users_id <> ?', session[:login])
+		@musics = Music.select('musics.*').joins('LEFT JOIN favorites ON musics.id = favorites.musics_id').where('
+			(favorites.users_id IS NULL OR favorites.users_id <> ?) AND musics.name NOT IN (?)', session[:login], Favorite.select(:name).where('users_id = ?', session[:login]))
+
  		return render :index
  	end
 
